@@ -12,9 +12,13 @@ const todoSchema = new mongoose.Schema({
         type: Boolean,
         required: true
     },
-    id: {
-        type: Number,
-        required: true
+    date: {
+        type: String,
+        default: Date.now()
+    },
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
     }
 
 });
