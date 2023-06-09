@@ -6,9 +6,12 @@ const mongoose = require('mongoose');
 // imports - internal
 const todoRouter = require('./routers/todoRouter');
 const userRouter = require('./routers/userRouter');
+const {notFoundHandler, errorHandler} = require('./middlewares/common/errors/errorHandlers');
 
 // app object
 const app = express();
+
+// .env configuration
 dotenv.config();
 
 // mongoose connection
@@ -31,6 +34,11 @@ app.use(express.json());
 app.use('/todo', todoRouter);
 app.use('/user', userRouter);
 
+// error handlers
+// 404 error handler
+app.use(notFoundHandler);
+//other error handler
+app.use(errorHandler);
 
 // listen
 app.listen(process.env.PORT, () => {
