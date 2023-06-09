@@ -6,7 +6,10 @@ const mongoose = require('mongoose');
 // imports - internal
 const todoRouter = require('./routers/todoRouter');
 const userRouter = require('./routers/userRouter');
-const {notFoundHandler, errorHandler} = require('./middlewares/common/errors/errorHandlers');
+const {
+  notFoundHandler,
+  errorHandler,
+} = require('./middlewares/common/errors/errorHandlers');
 
 // app object
 const app = express();
@@ -16,19 +19,19 @@ dotenv.config();
 
 // mongoose connection
 async function connectToMongoDB() {
-    try {
-      await mongoose.connect(process.env.MONGODB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
-      console.log('Connected to MongoDB');
-    } catch (error) {
-      console.error('Failed to connect MongoDB:', error);
-    }
+  try {
+    await mongoose.connect(process.env.MONGODB_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Failed to connect MongoDB:', error);
   }
-  
-  connectToMongoDB();
-  
+}
+
+connectToMongoDB();
+
 // parse options
 app.use(express.json());
 app.use('/todo', todoRouter);
@@ -42,5 +45,5 @@ app.use(errorHandler);
 
 // listen
 app.listen(process.env.PORT, () => {
-    console.log('listening on port ' + process.env.PORT);
+  console.log('listening on port ' + process.env.PORT);
 });
